@@ -84,6 +84,12 @@ struct Stream: NonCopyable {
         if (sz < 0) { co_return co_await read_until_eof(); }
 
         Buffer result(sz, 0);
+        //Then, awaiter.await_ready() is called (this is a short-cut to avoid the cost of suspension if it's known that the result is
+        //ready or can be completed synchronously). If its result, contextually-converted to bool is false then 
+        //  The coroutine is suspended (its coroutine state is populated with local variables and current suspension point). 
+        //  awaiter.await_suspend(handle) is called, where handle is the coroutine handle representing the current coroutine. Inside
+        //  that function, the suspended coroutine state is observable via that handle, and it's this function's responsibility to 
+        //  schedule it to resume on some executor, or to be destroyed (returning false counts as scheduling) 
         co_await read_awaiter_;
         sz = ::read(read_fd_, result.data(), result.size());
         if (sz == -1) {
