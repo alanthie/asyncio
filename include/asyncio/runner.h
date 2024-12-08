@@ -10,9 +10,11 @@
 
 ASYNCIO_NS_BEGIN
 template<concepts::Future Fut>
-decltype(auto) run(Fut&& main) {
+decltype(auto) run(Fut&& main) 
+{
     auto t = schedule_task(std::forward<Fut>(main));
     get_event_loop().run_until_complete();
+    
     if constexpr (std::is_lvalue_reference_v<Fut&&>) {
         return t.get_result();
     } else {

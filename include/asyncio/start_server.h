@@ -29,6 +29,7 @@ struct Server: NonCopyable {
                             fd_{std::exchange(other.fd_, -1) } {}
     ~Server() { close(); }
 
+    // accept
     Task<void> serve_forever() {
         Event ev { .fd = fd_, .flags = Event::Flags::EVENT_READ };
         auto& loop = get_event_loop();

@@ -8,7 +8,11 @@ using asyncio::Task;
 using asyncio::Stream;
 using namespace std::chrono;
 
-Task<> tcp_echo_client(std::string_view message) {
+Task<> tcp_echo_client(std::string_view message) 
+{
+    //------------------------
+    // sockfd = ::socket(...)
+    //------------------------
     auto stream = co_await asyncio::open_connection("127.0.0.1", 8888);
 
     fmt::print("Send: '{}'\n", message);
@@ -21,7 +25,10 @@ Task<> tcp_echo_client(std::string_view message) {
     stream.close();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+    //  auto t = schedule_task(std::forward<Fut>(main));
+    //  get_event_loop().run_until_complete();
     asyncio::run(tcp_echo_client("hello world!"));
     return 0;
 }
