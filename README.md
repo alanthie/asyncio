@@ -1,6 +1,14 @@
-Updating dependencies and cmake file
-Experimenting to build a scalable TCP client(s)-server using coroutines
-To be integrated into my CryptoChat project
+----------------------------------------------------------
+
+Updating dependencies and cmake file.
+
+Experimenting to build a scalable TCP client(s)-server using coroutines.
+
+To be integrated into my CryptoChat project.
+
+Initial source on netcan/asyncio
+
+----------------------------------------------------------
 
 <!--ts-->
 * [asyncio](#asyncio)
