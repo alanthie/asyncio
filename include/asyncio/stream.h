@@ -2,6 +2,32 @@
 // Created by netcan on 2021/11/30.
 //
 
+//
+// Coroutines are rewritten by the compiler in a certain way. 
+//
+/*
+https://theshoemaker.de/posts/yet-another-cpp-coroutine-tutorial
+This is what a coroutine is rewritten as:
+
+ReturnType someCoroutine(Parameters parameter)
+{
+    auto* frame = new coroutineFrame(std::forward<Parameters>(parameters));
+    auto returnObject = frame->promise.get_return_object();
+    co_await frame->promise.initial_suspend();
+    try
+    {
+        <body-statements>
+    }
+    catch (...)
+    {
+        frame->promise.unhandled_exception();
+    }
+    co_await frame->promise.final_suspend();
+    delete frame;
+    return returnObject;
+}
+*/
+
 #ifndef ASYNCIO_STREAM_H
 #define ASYNCIO_STREAM_H
 #include <asyncio/asyncio_ns.h>
